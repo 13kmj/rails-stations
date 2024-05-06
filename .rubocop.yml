@@ -1,0 +1,20 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/**/*'
+    - 'bin/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'spec/**/*.rb'
+    - 'test/**/*.rb'
+    - 'app/channels/**/*.rb'
+    - 'app/helpers/*.rb'
+    - 'app/jobs/*.rb'
+    - 'app/mailers/*.rb'
+    

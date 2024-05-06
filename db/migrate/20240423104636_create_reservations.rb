@@ -7,8 +7,8 @@ class CreateReservations < ActiveRecord::Migration[6.1]
       t.string :email, null: false, comment: '予約者メールアドレス'
       t.string :name, null: false, comment: '予約者名'
       t.timestamps
-      end
-  
-      add_index :reservations, [:date, :schedule_id, :sheet_id], unique: true, name: 'reservation_schedule_sheet_unique'
+    end
+
+    add_index :reservations, %i[date schedule_id sheet_id], unique: true, name: 'reservation_schedule_sheet_unique'
   end
 end

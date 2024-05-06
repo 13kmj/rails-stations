@@ -9,6 +9,9 @@
                 <%= f.label :email, '予約者Email', class: 'form-label'%>
                 <%= f.text_field :email, class: 'form-control text-center'%>
 
+                <%= f.label :sheet_id, 'ユーザID', class: 'form-label'%>
+                <%= f.select :user_id, options_from_collection_for_select(@users, :id, :id), {},  class: "form-select text-center" %>
+
                 <%= f.label :movie_id, '予約映画タイトル', class: 'form-label'%>
                 <%= f.select :movie_id, options_from_collection_for_select(@movies, :id, :name), {},  class: "form-select text-center" %>
 
@@ -17,6 +20,9 @@
 
                 <%= f.label :schedule_id, '予約スケジュール', class: 'form-label'%>
                 <%= f.select :schedule_id, options_from_collection_for_select(@schedules, :id, :id), {},  class: "form-select text-center" %>
+
+                <%= f.label :screen_id, 'スクリーン', class: 'form-label' %>
+                <%= f.select :screen_id, options_from_collection_for_select(@screens, :id, :id), {},  class: "form-select text-center" %>
 
                 <%= f.label :sheet_id, '座席', class: 'form-label'%>
                 <%= f.select :sheet_id, options_from_collection_for_select(@sheets, :id, :id), {},  class: 'form-select text-center'%>

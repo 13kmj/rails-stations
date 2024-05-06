@@ -35,7 +35,7 @@
           <td><%= reservation.created_at.strftime("%Y-%m-%d %H:%M") %></td>
           <td><%= reservation.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
           <td>
-            <%= link_to '編集', edit_admin_reservation_path(reservation), class: 'btn btn-warning' %>
+            <%= link_to '編集', admin_reservation_path(reservation), class: 'btn btn-warning' %>
             <%= link_to '削除', admin_reservation_path(reservation), method: :delete, data: { confirm: 'この予約を削除してもよろしいですか？' }, class: 'btn btn-danger' %>
           </td>
         </tr>

@@ -1,28 +1,31 @@
+# frozen_string_literal: true
+
 module Admin
+  # 映画に関するリクエストを処理するコントローラー(admin用)
   class MoviesController < ApplicationController
     def index
       @movies = Movie.all
 
       if params[:keyword].present?
-        @movies = @movies.where("name LIKE ? OR description LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%")
+        @movies = @movies.where('name LIKE ? OR description LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
       end
-  
-      if params[:is_showing].present?
-        @movies = @movies.where(is_showing: params[:is_showing] == '1')
-      end
+
+      return unless params[:is_showing].present?
+
+      @movies = @movies.where(is_showing: params[:is_showing] == '1')
     end
 
     def new
-        @movie = Movie.new
+      @movie = Movie.new
     end
 
     def create
       @movie = Movie.new(movie_params)
       if @movie.save
-        flash[:notice] = "映画の登録に成功しました。"
+        flash[:notice] = '映画の登録に成功しました。'
         redirect_to admin_movies_path
       else
-        flash.now[:notice] = "映画の登録に失敗しました"
+        flash.now[:notice] = '映画の登録に失敗しました'
         render :new
       end
     end
@@ -36,7 +39,7 @@ module Admin
       if @movie.update(movie_params)
         redirect_to admin_movies_path, notice: '映画情報が正常に更新されました。'
       else
-        flash.now[:notice] = "映画情報の更新に失敗しました"
+        flash.now[:notice] = '映画情報の更新に失敗しました'
         render :new
       end
     end
@@ -57,6 +60,5 @@ module Admin
     def movie_params
       params.require(:movie).permit(:name, :year, :description, :image_url, :is_showing, :screen_id)
     end
-
   end
 end
