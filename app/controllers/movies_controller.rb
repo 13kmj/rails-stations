@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# 映画に関するリクエストを処理するコントローラー
 class MoviesController < ApplicationController
   def index
     @movies = Movie.all
@@ -17,23 +20,30 @@ class MoviesController < ApplicationController
   end
 
   def reservation
-    @movie = Movie.find_by(id: params[:id])
-    if @movie.nil?
-      redirect_to movie_path(@movie), alert: '指定された映画が見つかりません。'
-      return
-    end
+    return unless load_movie_and_check_presence
 
     @schedule = Schedule.find_by(id: params[:schedule_id])
     @date = params[:date]
     @sheets = Sheet.order(:row, :column)
 
-    # 予約済みのシートID
-    @reserved_sheet_ids = Reservation.where(date: @date, schedule_id: @schedule.id,
-                                            screen_id: @movie.screen_id).pluck(:sheet_id)
+    set_reserved_sheet_ids
 
     return if params[:date].present? && params[:schedule_id].present?
 
     redirect_to movie_path(@movie), alert: '日付またはスケジュールIDのいずれかが必要です', status: :found
     nil
+  end
+
+  def load_movie_and_check_presence
+    @movie = Movie.find_by(id: params[:id])
+    return true if @movie
+
+    redirect_to movie_path(@movie), alert: '指定された映画が見つかりません。'
+    false
+  end
+
+  def set_reserved_sheet_ids
+    @reserved_sheet_ids = Reservation.where(date: @date, schedule_id: @schedule.id, screen_id: @movie.screen_id)
+                                     .pluck(:sheet_id)
   end
 end

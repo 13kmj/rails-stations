@@ -16,7 +16,10 @@
                 <%= f.label :movie_id, '予約映画タイトル' %>
                 <%= f.select :movie_id, options_from_collection_for_select(@movies, :id, :name) %>
 
-                <%= f.label :date, '予約時間' %>
+                <%= f.label :screen_id, 'スクリーン' %>
+                <%= f.select :screen_id, options_from_collection_for_select(@screens, :id, :id) %>
+
+                <%= f.label :date, '予約日' %>
                 <%= f.date_field :date %>
 
                 <%= f.label :schedule_id, '予約スケジュール' %>

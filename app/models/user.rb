@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# User モデル　認証や権限管理などに使用
 class User < ApplicationRecord
   has_many :reservations
   # Include default devise modules. Others available are:

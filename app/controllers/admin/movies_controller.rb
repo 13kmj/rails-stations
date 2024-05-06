@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Admin
+  # 映画に関するリクエストを処理するコントローラー(admin用)
   class MoviesController < ApplicationController
     def index
       @movies = Movie.all

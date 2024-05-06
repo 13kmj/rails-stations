@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Admin
+  # 上映スケジュールに関するリクエストを処理するコントローラー(admin用)
   class SchedulesController < ApplicationController
     def index
       @movies = Movie.includes(:schedules).where.not(schedules: { id: nil })

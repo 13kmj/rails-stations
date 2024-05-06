@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Reservation モデル　映画の予約に使用
 class Reservation < ApplicationRecord
   belongs_to :schedule
   has_one :movie, through: :schedule
