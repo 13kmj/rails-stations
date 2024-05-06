@@ -1,3 +1,3 @@
 class Sheet < ApplicationRecord
-    belongs_to :schedule, optional: true
+  belongs_to :schedule, optional: true
 end

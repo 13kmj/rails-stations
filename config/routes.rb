@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :schedules do
       resources :reservations
     end
-    
+
     resources :sheets
     resources :reservations
     resources :screens
