@@ -13,4 +13,8 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :password_confirmation, presence: true
   validates :password, presence: true
+
+  def user_information
+    "ユーザID：#{id}　#{name}/#{email}"
+  end
 end

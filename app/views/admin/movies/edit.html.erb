@@ -15,9 +15,10 @@
   </div>
 
   <div>
-  <%= form.label :year, "公開年" %>
-  <%= form.text_field :year %>
-</div>
+    <%= form.label :year, "公開年" %>
+    <%= form.text_field :year %>
+  </div>
+
   <div>
     <%= form.label :description, "概要" %>
     <%= form.text_area :description %>
@@ -29,8 +30,8 @@
   </div>
 
   <div>
-  <%= form.label :screen_id, "スクリーン" %>
-  <%= form.number_field :screen_id %>
+    <%= form.label :screen_id, "劇場・スクリーン" %>
+    <%= form.collection_select :screen_id, Screen.all, :id, :screen_theater_name, prompt: "劇場・スクリーンを選択してください" %>
   </div>
 
   <div>
@@ -45,5 +46,5 @@
   <div>
   <%= link_to '削除', admin_movie_path(@movie), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'delete-button' %>
   </div>
-  
+
   <% end %>

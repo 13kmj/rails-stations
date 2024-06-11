@@ -13,9 +13,9 @@
   </div>
 
   <div>
-    <label>スクリーン:</label>
-    <%= form.hidden_field :screen_id, value: params[:screen_id] %>
-    <%= @screen %>
+    <label>劇場/スクリーン:</label>
+    <%= @movie.screen.theater.name %> ： <%= @movie.screen.screen_number %>
+    <%= form.hidden_field :screen_id, value: @movie.screen_id %>
   </div>
   
   <div>
@@ -44,13 +44,11 @@
 
   <div>
     <label>予約者氏名:</label>
-    <%= form.hidden_field :name, value: current_user.name %>
     <%= current_user.name %>
   </div>
 
   <div>
     <label>予約者メールアドレス:</label>
-    <%= form.hidden_field :email, value: current_user.email %>
     <%=  current_user.email %>
   </div>
 

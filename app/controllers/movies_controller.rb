@@ -9,9 +9,12 @@ class MoviesController < ApplicationController
       @movies = @movies.where('name LIKE ? OR description LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
     end
 
-    return unless params[:is_showing].present?
-
-    @movies = @movies.where(is_showing: params[:is_showing] == '1')
+    if params[:theater].present?
+      theaters = Theater.where('address LIKE ? OR name LIKE ?', "%#{params[:theater]}%", "%#{params[:theater]}%")
+      theater_ids = theaters.pluck(:id)
+      screen_ids = Screen.where(theater_id: theater_ids).pluck(:id)
+      @movies = @movies.where(screen_id: screen_ids)
+    end
   end
 
   def show

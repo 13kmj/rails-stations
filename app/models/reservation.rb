@@ -6,10 +6,12 @@ class Reservation < ApplicationRecord
   has_one :movie, through: :schedule
   belongs_to :sheet
   belongs_to :user
+  belongs_to :screen
 
-  # validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, presence: true
-  # validates :name, presence: { message: '名前を入力してください。' }
-  # validates :name, uniqueness: { scope: [:date, :schedule_id, :screen_id], message: "登録済みの名前です" }
+  def screen_theater_name
+    "#{theater.name}：#{screen_number}"
+  end
+
   # validates :sheet_id, uniqueness: { scope: [:date, :schedule_id], message: "その座席はすでに予約済みです" }
   # validate :validate_unique_reservation
   # validates :date, uniqueness: { scope: %i[schedule_id sheet_id date screen_id] }
