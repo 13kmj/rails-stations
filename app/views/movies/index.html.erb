@@ -7,13 +7,15 @@
 
 <h1>映画一覧</h1>
 
-
-<h2>映画検索</h2>
+<h2>検索</h2>
 <%= form_with url: movies_path, method: :get, local: true do |form| %>
-  <%= form.text_field :keyword, placeholder: "キーワード" %>
-  <%= form.radio_button :is_showing, "", checked: true %> すべて
-  <%= form.radio_button :is_showing, "1" %> 公開中
-  <%= form.radio_button :is_showing, "0" %> 公開予定
+  <h3>映画から検索</h3>
+    <%= form.text_field :keyword, placeholder: "キーワード" %>
+    <%= form.radio_button :is_showing, "", checked: true %> すべて
+    <%= form.radio_button :is_showing, "1" %> 公開中
+    <%= form.radio_button :is_showing, "0" %> 公開予定
+  <h3>劇場から検索</h3>
+    <%= form.text_field :theater, placeholder: "住所・劇場名から検索" %>
   <%= form.submit "検索" %>
 <% end %>
 
@@ -25,6 +27,7 @@
       <th>上映中</th>
       <th>概要</th>
       <th>画像URL</th>
+      <th>劇場：スクリーン</th>
       <th>登録日時</th>
       <th>更新日時</th>
     </tr>
@@ -35,7 +38,8 @@
       <td><%= movie.year %></td>
       <td><%= movie.is_showing ? '上映中' : '上映予定' %></td>
       <td><%= movie.description %></td>
-      <td><%= movie.image_url %></td>
+      <td><img src="<%= movie.image_url %>" alt="Movie poster"></td>
+      <td><%=  movie.theater.name %>：<%= movie.screen.screen_number %></td>
       <td><%= movie.created_at %></td>
       <td><%= movie.updated_at %></td>
     </tr>

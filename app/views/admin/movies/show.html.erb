@@ -1,13 +1,32 @@
 <h1><%= @movie.name %></h1>
 
 <p>
+  <img src="<%= @movie.image_url %>" alt="Movie poster">
+</p>
+
+<p>
+  <strong>劇場:</strong>
+  <%= @movie.theater.name %>
+</p>
+
+<p>
+  <strong>スクリーン:</strong>
+  <%= @movie.screen.screen_number %>
+</p>
+
+<p>
   <strong>ID:</strong>
   <%= @movie.id %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>概要:</strong>
   <%= @movie.description %>
+</p>
+
+<p>
+  <strong>公開年:</strong>
+  <%= @movie.year %>
 </p>
 
 <h2>上映スケジュール</h2>

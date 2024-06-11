@@ -28,8 +28,8 @@
   </div>
 
   <div>
-  <%= form.label :screen_id, "スクリーン" %>
-  <%= form.number_field :screen_id %>
+    <%= form.label :screen_id, "劇場・スクリーン" %>
+    <%= form.collection_select :screen_id, Screen.all, :id, :screen_theater_name, prompt: "劇場・スクリーンを選択してください" %>
   </div>
 
   <div>

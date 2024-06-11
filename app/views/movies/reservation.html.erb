@@ -17,7 +17,8 @@
 <h1>座席予約</h1>
 <p>映画タイトル: <%= @movie.name %></p>
 <p>日付: <%= @date %>, スケジュール: <%= @schedule.start_time %> - <%= @schedule.end_time %></p>
-<p>スクリーンID: <%= @movie.screen_id %></p>
+<p>劇場： <%= @movie.theater.name %></p>
+<p>スクリーン: <%= @movie.screen.screen_number %></p>
 
 <table>
   <% @sheets.group_by(&:row).each do |row, sheets_in_row| %>
