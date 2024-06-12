@@ -41,6 +41,8 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'rubocop', require: false
+  gem 'whenever', require: false
+
 end
 
 group :development do
