@@ -69,7 +69,8 @@ class ReservationsController < ApplicationController
   end
 
   def redirect_to_reservation_success
-    flash[:success] = '予約が完了しました。'
+    ReservationMailer.reservation_confirmation(@reservation).deliver_now
+    flash[:success] = '予約が完了しました。詳細はメールをご確認ください。'
     redirect_to movie_path(params[:reservation][:movie_id])
   end
 
