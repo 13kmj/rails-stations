@@ -28,3 +28,7 @@ env :GEM_HOME, ENV['GEM_HOME']
 every 1.day, at: '7:00 pm' do
   rake "reminder_mailer:send_reminders"
 end
+
+every :day, at: '12:00am' do
+  rake 'update:daily_rankings'
+end
