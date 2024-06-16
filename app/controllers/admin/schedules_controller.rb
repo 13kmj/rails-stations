@@ -33,7 +33,7 @@ module Admin
     private
 
     def schedule_params
-      params.require(:schedule).permit(:start_time, :end_time)
+      params.require(:schedule).permit(:start_time, :end_time, :date, :screen_id)
     end
   end
 end

@@ -15,10 +15,10 @@
 <% end %>
 
 <h1>座席予約</h1>
-<p>映画タイトル: <%= @movie.name %></p>
-<p>日付: <%= @date %>, スケジュール: <%= @schedule.start_time %> - <%= @schedule.end_time %></p>
-<p>劇場： <%= @movie.theater.name %></p>
-<p>スクリーン: <%= @movie.screen.screen_number %></p>
+<p>映画タイトル: <%= @schedule.movie.name %></p>
+<p>上映日時: <%= @schedule.date %> <%= @schedule.start_time.strftime("%H:%M:%S") %> - <%= @schedule.end_time.strftime("%H:%M:%S") %></p>
+<p>劇場： <%= @schedule.screen.theater.name %></p>
+<p>スクリーン: <%= @schedule.screen.screen_number %></p>
 
 <table>
   <% @sheets.group_by(&:row).each do |row, sheets_in_row| %>
@@ -29,7 +29,7 @@
             <%= "#{sheet.row}-#{sheet.column}" %>
           <% else %>
             <%= link_to "#{sheet.row}-#{sheet.column}",
-                        new_movie_schedule_reservation_path(movie_id: @movie.id, schedule_id: @schedule.id, date: @date, sheet_id: sheet.id, screen_id: @movie.screen_id) %>
+                        new_movie_schedule_reservation_path(movie_id: @movie.id, schedule_id: @schedule.id, sheet_id: sheet.id) %>
           <% end %>
         </td>
       <% end %>

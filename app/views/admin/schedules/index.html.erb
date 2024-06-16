@@ -1,3 +1,11 @@
+<% if flash.any? %>
+  <div id="flash_messages">
+    <% flash.each do |type, message| %>
+      <div class="flash <%= type %>"><%= message %></div>
+    <% end %>
+  </div>
+<% end %>
+
 <h1>スケジュール一覧</h1>
 
 <% @movies.each do |movie| %>
@@ -6,9 +14,10 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>作品ID</th>
+        <th>上映日</th>
         <th>開始時刻</th>
         <th>終了時刻</th>
+        <th>劇場・スクリーン</th>
         <th>作成日時</th>
         <th>更新日時</th>
       </tr>
@@ -17,11 +26,12 @@
       <% movie.schedules.each do |schedule| %>
         <tr>
           <td><%= link_to schedule.id, admin_schedule_path(schedule) %></td>
-          <td><%= schedule.movie_id %></td>
-          <td><%= schedule.start_time.strftime("%Y-%m-%d %H:%M") %></td>
-          <td><%= schedule.end_time.strftime("%Y-%m-%d %H:%M") %></td>
-          <td><%= schedule.created_at.strftime("%Y-%m-%d %H:%M") %></td>
-          <td><%= schedule.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+          <td><%= schedule.date %></td>
+          <td><%= schedule.start_time.strftime("%H:%M:%S") %></td>
+          <td><%= schedule.end_time.strftime("%H:%M:%S") %></td>
+          <td><%= schedule.screen.screen_theater_name %></td>
+          <td><%= schedule.created_at %></td>
+          <td><%= schedule.updated_at %></td>
         </tr>
       <% end %>
     </tbody>

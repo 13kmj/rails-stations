@@ -1,8 +1,21 @@
-<h1>Schedule Details</h1>
+<% if flash.any? %>
+  <div id="flash_messages">
+    <% flash.each do |type, message| %>
+      <div class="flash <%= type %>"><%= message %></div>
+    <% end %>
+  </div>
+<% end %>
+
+<h1>スケジュール詳細</h1>
 <p>
-  <b>Movie ID:</b> <%= @schedule.movie_id %><br>
-  <b>Start Time:</b> <%= @schedule.start_time %><br>
-  <b>End Time:</b> <%= @schedule.end_time %><br>
-  <b>Created At:</b> <%= @schedule.created_at %><br>
-  <b>Updated At:</b> <%= @schedule.updated_at %><br>
+  <b>映画</b> <%= @schedule.movie.name %><br>
+  <b>上映日:</b> <%= @schedule.date %><br>
+  <b>開始時刻:</b> <%= @schedule.start_time.strftime("%H:%M:%S") %><br>
+  <b>終了時刻:</b> <%= @schedule.end_time.strftime("%H:%M:%S") %><br>
+  <b>劇場・スクリーン:</b> <%= @schedule.screen.screen_theater_name %><br>
+  <b>作成日時:</b> <%= @schedule.created_at %><br>
+  <b>新日時:</b> <%= @schedule.updated_at %><br>
 </p>
+
+<%= link_to '戻る', admin_schedules_path %>
+<%= link_to '編集', edit_admin_schedule_path(@schedule) %>

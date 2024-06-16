@@ -7,6 +7,8 @@
   </div>
 <% end %>
 
+<h1>映画情報編集</h1>
+
 <%= form_with(model: [:admin, @movie]) do |form| %>
     
   <div>
@@ -30,11 +32,6 @@
   </div>
 
   <div>
-    <%= form.label :screen_id, "劇場・スクリーン" %>
-    <%= form.collection_select :screen_id, Screen.all, :id, :screen_theater_name, prompt: "劇場・スクリーンを選択してください" %>
-  </div>
-
-  <div>
     <%= form.label :is_showing, "上映中" %>
     <%= form.check_box :is_showing %>
   </div>
@@ -44,6 +41,7 @@
   </div>
 
   <div>
+  <%= link_to '戻る', admin_movies_path(@movie) %>
   <%= link_to '削除', admin_movie_path(@movie), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'delete-button' %>
   </div>
 

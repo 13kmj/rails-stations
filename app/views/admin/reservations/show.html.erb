@@ -1,7 +1,7 @@
-<div class="container text-center mt-5">
-  <div class="row justify-content-center">
-    <p class="fs-2 fw-bold">予約詳細・編集</p>
-    <div class = "col-4">
+<div>
+  <div>
+    <p>予約詳細・編集</p>
+      <div>
       <%= form_with model: [:admin, @reservation], url: admin_reservation_path, method: :patch do |form|%>
         <div>
           <%= form.label :sheet_id, '予約者' %>
@@ -9,32 +9,18 @@
         </div>
 
         <div>
-          <%= form.label :movie_id, '予約映画タイトル' %>
-          <%= form.select :movie_id, options_from_collection_for_select(@movies, :id, :name, form.object.schedule.movie.name), {} %>
-        </div>
-
-        <div>
-          <%= form.label :date, '予約時間' %>
-          <%= form.date_field :date, value: form.object.date %>
-        </div>
-
-        <div>
-          <%= form.label :schedule_id, '予約スケジュール' %>
-          <%= form.select :schedule_id, options_from_collection_for_select(@schedules, :id, :id, form.object.screen_id), {} %>
-        </div>
-
-        <div>
-          <%= form.label :screen_id, '劇場・スクリーン', class: 'form-label' %>
-          <%= form.collection_select :screen_id, Screen.all, :id, :screen_theater_name, selected: form.object.screen_id %>
+          <%= form.label :schedule_id, 'スケジュール詳細' %>
+          <%= form.collection_select :schedule_id, Schedule.all, :id, :schedule_information, selected: form.object.schedule_id %>
         </div>
 
         <div>
           <%= form.label :sheet_id, '座席', class: 'form-label'%>
-          <%= form.select :sheet_id, options_from_collection_for_select(@sheets, :id, :id, form.object.sheet_id), {}%>
+          <%= form.collection_select :sheet_id, Sheet.all, :id, :sheat_name, selected: form.object.sheet_id %>
         </div>
 
         <%= form.submit "編集" %>
       <% end %>
+      <%= link_to '戻る', admin_reservations_path %>
       <%= link_to '削除', admin_reservation_path, method: :delete, 'data-confirm' => '本当に削除しますか？' %>
     </div>
   </div>

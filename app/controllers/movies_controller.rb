@@ -9,44 +9,44 @@ class MoviesController < ApplicationController
       @movies = @movies.where('name LIKE ? OR description LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
     end
 
-    if params[:theater].present?
-      theaters = Theater.where('address LIKE ? OR name LIKE ?', "%#{params[:theater]}%", "%#{params[:theater]}%")
-      theater_ids = theaters.pluck(:id)
-      screen_ids = Screen.where(theater_id: theater_ids).pluck(:id)
-      @movies = @movies.where(screen_id: screen_ids)
-    end
+    return unless params[:is_showing].present?
+    @movies = @movies.where(is_showing: params[:is_showing] == '1')
   end
 
   def show
+    return unless load_movie_and_check_presence
+
     @movie = Movie.find(params[:id])
     @schedules = @movie.schedules
   end
 
   def reservation
     return unless load_movie_and_check_presence
+    return unless check_schedule_id
 
-    @schedule = Schedule.find_by(id: params[:schedule_id])
-    @date = params[:date]
+    # @schedule = Schedule.find_by(id: params[:schedule_id])
     @sheets = Sheet.order(:row, :column)
 
     set_reserved_sheet_ids
-
-    return if params[:date].present? && params[:schedule_id].present?
-
-    redirect_to movie_path(@movie), alert: '日付またはスケジュールIDのいずれかが必要です', status: :found
-    nil
   end
 
   def load_movie_and_check_presence
     @movie = Movie.find_by(id: params[:id])
     return true if @movie
 
-    redirect_to movie_path(@movie), alert: '指定された映画が見つかりません。'
+    redirect_to movies_path, alert: '指定された映画が見つかりません。'
+    false
+  end
+
+  def check_schedule_id
+    @schedule = Schedule.find_by(id: params[:schedule_id])
+    return true if @schedule
+    redirect_to movie_path(@movie), alert: 'スケジュールIDが必要です', status: :found
     false
   end
 
   def set_reserved_sheet_ids
-    @reserved_sheet_ids = Reservation.where(date: @date, schedule_id: @schedule.id, screen_id: @movie.screen_id)
+    @reserved_sheet_ids = Reservation.where(schedule_id: @schedule.id)
                                      .pluck(:sheet_id)
   end
 end

@@ -13,32 +13,18 @@
         </div>
 
         <div>
-          <%= form.label :movie_id, '予約映画タイトル' %>
-          <%= form.select :movie_id, options_from_collection_for_select(@movies, :id, :name) %>
-        </div>
-
-        <div>
-          <%= form.label :screen_id, '劇場・スクリーン' %>
-          <%= form.collection_select :screen_id, Screen.all, :id, :screen_theater_name, prompt: "劇場・スクリーンを選択してください" %>
-        </div>
-
-        <div>
-          <%= form.label :date, '予約日' %>
-          <%= form.date_field :date %>
-        </div>
-
-        <div>
-          <%= form.label :schedule_id, '予約スケジュール' %>
-          <%= form.select :schedule_id, options_from_collection_for_select(@schedules, :id, :id), {} %>
+          <%= form.label :schedule_id, 'スケジュール詳細' %>
+          <%= form.collection_select :schedule_id, Schedule.all, :id, :schedule_information, prompt: "スケジュールを選択してください" %>
         </div>
 
         <div>
           <%= form.label :sheet_id, '座席' %>
-          <%= form.select :sheet_id, options_from_collection_for_select(@sheets, :id, :id), {} %>
+          <%= form.collection_select :sheet_id, Sheet.all, :id, :sheat_name, prompt: "座席を選択してください" %>
         </div>
 
-        <%= form.submit "予約", class: 'btn btn-primary mt-3'%>
+        <%= form.submit "予約" %>
       <% end %>
+      <%= link_to '戻る', admin_reservations_path %>
     </div>
   </div>
 </div>
