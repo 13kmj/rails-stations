@@ -1,0 +1,43 @@
+<% if flash.any? %>
+  <div id="flash_messages">
+    <% flash.each do |type, message| %>
+      <div class="flash <%= type %>"><%= message %></div>
+    <% end %>
+  </div>
+<% end %>
+
+<h1>スケジュール新規作成</h1>
+
+<%= form_with model: @schedule do |form| %>
+  <% if params[:movie_id].present? %>
+    <% movie = Movie.find_by(id: params[:movie_id]) %>
+    <div>
+      <%= form.label :movie_id, "映画名：" %>
+      <%= movie.name %>
+      <%= form.hidden_field :movie_id, value: params[:movie_id] %>
+    </div>
+  <% else %>
+    <div>
+      <%= form.label :movie_id, "映画名" %><br>
+      <%= form.collection_select :movie_id, Movie.all, :id, :name, prompt: "映画を選択してください" %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :start_date, '上映期間' %>    
+    <%= form.date_select :start_date, start_year: Date.today.year, use_month_numbers: true, start_from_day: Date.today %>
+    ~
+    <%= form.date_select :end_date, start_year: Date.today.year, use_month_numbers: true, start_from_day: Date.today %>
+  </div>  
+
+  <div>
+    <%= form.label :start_time, '開始時間' %>
+    <%= form.time_select :start_time %>
+  </div>
+
+  <div>  
+    <%= form.label :end_time, '終了時間' %>
+    <%= form.time_select :end_time %>
+  </div>
+  <%= form.submit '作成' %>
+<% end %>

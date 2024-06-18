@@ -27,6 +27,6 @@ Rails.application.routes.draw do
     resources :movies do
       resources :schedules, only: %i[new create]
     end
-    resources :schedules, except: %i[new create]
+    resources :schedules
   end
 end
