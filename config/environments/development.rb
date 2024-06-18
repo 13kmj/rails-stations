@@ -37,14 +37,14 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: 'd33e955ac13d95',
-    password: '4e5e608d54d229',
-    address: 'sandbox.smtp.mailtrap.io',
-    domain: 'sandbox.smtp.mailtrap.io',
-    port: '2525',
-    authentication: :cram_md5
+  user_name: ENV['SMTP_USER_NAME'],
+  password: ENV['SMTP_PASSWORD'],
+  address: ENV['SMTP_ADDRESS'],
+  domain: ENV['SMTP_DOMAIN'],
+  port: ENV['SMTP_PORT'],
+  authentication: ENV['SMTP_AUTHENTICATION']
   }
-
+  
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
