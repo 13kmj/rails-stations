@@ -42,7 +42,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'whenever', require: false
-
+  gem 'dotenv-rails'
 end
 
 group :development do
