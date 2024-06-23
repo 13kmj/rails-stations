@@ -8,6 +8,8 @@
 
 <h1>スケジュール一覧</h1>
 
+<%= link_to '新規スケジュール追加', new_admin_schedule_path %>
+
 <% @movies.each do |movie| %>
   <h2>作品名: <%= movie.name %> (作品ID: <%= movie.id %>)</h2>
   <table>
