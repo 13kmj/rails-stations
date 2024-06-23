@@ -25,15 +25,15 @@ module Admin
 
       # 指定した期間、曜日に当てはまる日付でレコードを作成
       (start_date..end_date).each do |date|
-        if days_of_week.include?(date.wday)
-          schedules << Schedule.new(
-        movie_id: schedule_create_params[:movie_id],
-        screen_id: schedule_create_params[:screen_id],
-        date: date,
-        start_time: schedule_create_params[:start_time],
-        end_time: schedule_create_params[:end_time]
-      )
-        end
+        next unless days_of_week.include?(date.wday)
+
+        schedules << Schedule.new(
+          movie_id: schedule_create_params[:movie_id],
+          screen_id: schedule_create_params[:screen_id],
+          date: date,
+          start_time: schedule_create_params[:start_time],
+          end_time: schedule_create_params[:end_time]
+        )
       end
 
       if schedules.all?(&:valid?)
