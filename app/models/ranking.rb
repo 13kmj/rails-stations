@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Rankingモデル:映画のランキング情報
 class Ranking < ApplicationRecord
   belongs_to :movie
 

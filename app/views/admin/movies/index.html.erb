@@ -11,6 +11,7 @@
 <h1>映画一覧</h1>
 
 <%= link_to '映画追加', new_admin_movie_path %>
+<%= link_to 'スケジュール追加', new_admin_schedule_path %>
 
 <h2>映画検索</h2>
 <%= form_with url: admin_movies_path, method: :get, local: true do |form| %>

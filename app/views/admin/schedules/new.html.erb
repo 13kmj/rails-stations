@@ -1,0 +1,56 @@
+<% if flash.any? %>
+  <div id="flash_messages">
+    <% flash.each do |type, message| %>
+      <div class="flash <%= type %>"><%= message %></div>
+    <% end %>
+  </div>
+<% end %>
+
+<h1>スケジュール新規作成</h1>
+
+<%= form_with model: @schedule, url: admin_schedules_path, local: true do |form| %>
+
+  <% if params[:movie_id].present? %>
+    <% movie = Movie.find_by(id: params[:movie_id]) %>
+    <div>
+      <%= form.label :movie_id, "映画名：" %>
+      <%= movie.name %>
+      <%= form.hidden_field :movie_id, value: params[:movie_id] %>
+    </div>
+  <% else %>
+    <div>
+      <%= form.label :movie_id, "映画名" %><br>
+      <%= form.collection_select :movie_id, Movie.all, :id, :name, prompt: "映画を選択してください" %>
+    </div>
+  <% end %>
+
+  <div>
+  <label>劇場・スクリーン:</label>
+  <%= form.collection_select :screen_id, Screen.all, :id, :screen_theater_name, prompt: "劇場・スクリーンを選択してください" %>
+  </div>
+
+  <div>
+    <%= form.label :start_date, '上映期間' %>    
+    <%= form.date_field :start_date, required: true  %>
+    ~
+    <%= form.date_field :end_date, required: true  %>
+  </div>
+
+  <div>
+  <%= form.label :days_of_week, '曜日' %><br>
+  <% japanese_day_names.each_with_index do |day, index| %>
+    <%= form.check_box :days_of_week, { multiple: true }, index, nil %> <%= day %><br>
+  <% end %>
+  </div>
+
+  <div>
+    <%= form.label :start_time, '開始時間' %>
+    <%= form.time_field :start_time, required: true  %>
+  </div>
+
+  <div>  
+    <%= form.label :end_time, '終了時間' %>
+    <%= form.time_field :end_time, required: true %>
+  </div>
+  <%= form.submit '作成' %>
+<% end %>

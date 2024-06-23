@@ -10,6 +10,7 @@ class MoviesController < ApplicationController
     end
 
     return unless params[:is_showing].present?
+
     @movies = @movies.where(is_showing: params[:is_showing] == '1')
   end
 
@@ -41,6 +42,7 @@ class MoviesController < ApplicationController
   def check_schedule_id
     @schedule = Schedule.find_by(id: params[:schedule_id])
     return true if @schedule
+
     redirect_to movie_path(@movie), alert: 'スケジュールIDが必要です', status: :found
     false
   end
