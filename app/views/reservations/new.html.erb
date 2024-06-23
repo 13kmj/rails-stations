@@ -14,26 +14,19 @@
 
   <div>
     <label>劇場/スクリーン:</label>
-    <%= @movie.screen.theater.name %> ： <%= @movie.screen.screen_number %>
-    <%= form.hidden_field :screen_id, value: @movie.screen_id %>
+    <%= @schedule.screen.theater.name %> ： <%= @schedule.screen.screen_number %>
   </div>
   
   <div>
-    <label>上映スケジュール:</label>
+    <label>上映日時:</label>
     <%= form.hidden_field :schedule_id, value: params[:schedule_id] %>
-    <%= @schedule.start_time %> - <%= @schedule.end_time %>
+    <%= @schedule.date %> <%= @schedule.start_time.strftime("%H:%M:%S") %> - <%= @schedule.end_time.strftime("%H:%M:%S") %>
   </div>
   
   <div>
     <label>座席:</label>
     <%= form.hidden_field :sheet_id, value: params[:sheet_id] %>
     <%= @sheet.row %> - <%= @sheet.column %>
-  </div>
-  
-  <div>
-    <label>日付:</label>
-    <%= form.hidden_field :date, value: params[:date] %>
-    <%= @date %>
   </div>
   
   <div>

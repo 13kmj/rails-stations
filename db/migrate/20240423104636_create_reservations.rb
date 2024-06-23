@@ -9,6 +9,6 @@ class CreateReservations < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :reservations, %i[date schedule_id sheet_id], unique: true, name: 'reservation_schedule_sheet_unique'
+    add_index :reservations, %i[schedule_id sheet_id], unique: true, name: 'reservation_schedule_sheet_unique'
   end
 end

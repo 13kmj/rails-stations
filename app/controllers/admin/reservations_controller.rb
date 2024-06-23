@@ -7,7 +7,7 @@ module Admin
 
     def index
       @reservations = Reservation.includes(:movie, :schedule)
-                                 .where('schedules.end_time > ?', Time.now)
+                                 .where('schedules.date > ?', Date.today)
                                  .references(:schedules)
     end
 
@@ -22,10 +22,8 @@ module Admin
 
     def create
       @reservation = Reservation.new(reservation_params)
-      @reservation_sheet = Reservation.find_by(date: reservation_params[:date],
-                                               sheet_id: reservation_params[:sheet_id],
-                                               schedule_id: reservation_params[:schedule_id],
-                                               screen_id: reservation_params[:screen_id])
+      @reservation_sheet = Reservation.find_by(sheet_id: reservation_params[:sheet_id],
+                                               schedule_id: reservation_params[:schedule_id])
       return redirect_existing_reservation if @reservation_sheet
 
       save_reservation_or_render_new
@@ -57,7 +55,7 @@ module Admin
     end
 
     def reservation_params
-      params.require(:reservation).permit(:date, :sheet_id, :schedule_id, :email, :name, :screen_id, :user_id)
+      params.require(:reservation).permit(:sheet_id, :schedule_id, :email, :user_id)
     end
 
     def redirect_existing_reservation
@@ -65,9 +63,7 @@ module Admin
 
       flash[:error] = '既に予約されています'
 
-      redirect_to admin_reservations_path(params[:reservation][:movie_id],
-                                          date: reservation_params[:date],
-                                          schedule_id: reservation_params[:schedule_id],
+      redirect_to admin_reservations_path(schedule_id: reservation_params[:schedule_id],
                                           screen_id: reservation_params[:screen_id]), status: :found
     end
 
@@ -82,10 +78,8 @@ module Admin
 
     def check_reservation
       # 重複予約のチェック
-      Reservation.where(date: reservation_params[:date],
-                        schedule_id: reservation_params[:schedule_id],
-                        sheet_id: reservation_params[:sheet_id],
-                        screen_id: reservation_params[:screen_id])
+      Reservation.where(schedule_id: reservation_params[:schedule_id],
+                        sheet_id: reservation_params[:sheet_id])
                  .where.not(id: @reservation.id) # 現在の予約を除外
                  .exists?
     end

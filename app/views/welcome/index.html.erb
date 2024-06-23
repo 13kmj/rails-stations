@@ -1,0 +1,25 @@
+<!-- app/views/welcome/index.html.erb -->
+<h1>人気作品ランキング</h1>
+<p>ランキングは毎日更新！！</p>
+<table>
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>映画タイトル</th>
+      <th>概要</th>
+      <th>画像</th>
+      <th>予約数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @rankings.each_with_index do |ranking, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= link_to ranking.movie.name, movie_path(ranking.movie) %></td>
+        <td style="width: 22%; white-space: pre-line;"><%= ranking.movie.description %></td>
+        <td><img src="<%= ranking.movie.image_url %>" alt="Movie poster" width="300" height="300"></td>
+        <td><%= ranking.reservation_count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

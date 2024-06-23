@@ -42,11 +42,11 @@ class ReservationsController < ApplicationController
   end
 
   def reservation_params
-    params.require(:reservation).permit(:date, :sheet_id, :schedule_id, :email, :name, :screen_id, :user_id)
+    params.require(:reservation).permit(:sheet_id, :schedule_id, :user_id)
   end
 
   def valid_parameters_present?
-    params[:date].present? && params[:sheet_id].present?
+    params[:sheet_id].present?
   end
 
   def redirect_to_movie_path_or_error
@@ -54,10 +54,8 @@ class ReservationsController < ApplicationController
   end
 
   def find_reserved_sheet
-    Reservation.find_by(date: params[:reservation][:date],
-                        schedule_id: params[:reservation][:schedule_id],
-                        sheet_id: params[:reservation][:sheet_id],
-                        screen_id: params[:reservation][:screen_id])
+    Reservation.find_by(schedule_id: params[:reservation][:schedule_id],
+                        sheet_id: params[:reservation][:sheet_id])
   end
 
   def redirect_to_reserved_sheet

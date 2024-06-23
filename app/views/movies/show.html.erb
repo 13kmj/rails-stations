@@ -15,8 +15,6 @@
       <th>公開年</th>
       <th>上映中</th>
       <th>概要</th>
-      <th>画像URL</th>
-      <th>劇場：スクリーン</th>
       <th>登録日時</th>
       <th>更新日時</th>
     </tr>
@@ -28,8 +26,6 @@
       <td><%= @movie.year %></td>
       <td><%= @movie.is_showing ? '上映中' : '上映予定' %></td>
       <td><%= @movie.description %></td>
-      <td><img src="<%= @movie.image_url %>" alt="Movie poster"></td>
-      <td><%=  @movie.theater.name %>：<%= @movie.screen.screen_number %></td>
       <td><%= @movie.created_at %></td>
       <td><%= @movie.updated_at %></td>
     </tr>
@@ -40,29 +36,33 @@
 <table>
   <thead>
     <tr>
-      <th>開始時刻</th>
-      <th>終了時刻</th>
+    <th>ID</th>
+    <th>上映日</th>
+    <th>開始時刻</th>
+    <th>終了時刻</th>
+    <th>劇場・スクリーン</th>
+    <th>作成日時</th>
+    <th>更新日時</th>
+    <th></th>
     </tr>
   </thead>
   <tbody>
     <% @movie.schedules.each do |schedule| %>
       <tr>
-        <td><%= schedule.start_time %></td>
-        <td><%= schedule.end_time %></td>
+        <%= form_with url: reservation_movie_path(movie_id: @movie.id), method: :get, local: true do |form|%>
+          <td><%= schedule.id %></td>
+          <td><%= schedule.date %></td>
+          <td><%= schedule.start_time.strftime("%H:%M:%S") %></td>
+          <td><%= schedule.end_time.strftime("%H:%M:%S") %></td>
+          <td><%= schedule.screen.screen_theater_name %></td>
+          <td><%= schedule.created_at %></td>
+          <td><%= schedule.updated_at %></td>
+          <td>
+            <%= hidden_field_tag :schedule_id, schedule.id %>
+            <%= form.submit '座席を予約する' %>
+        <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<h2>予約する</h2>
-<%= form_with url: reservation_movie_path(movie_id: @movie.id), method: :get, local: true do |form| %>
-  <div>
-  <label>上映スケジュール:</label>
-  <%= form.collection_select :schedule_id, @movie.schedules, :id, :start_time %>
-</div>
-  <div>
-    <label>日付:</label>
-    <%= form.select :date, (Date.today..(Date.today + 7.days)).map { |date| [date.strftime('%Y-%m-%d'), date] }, { selected: Date.today } %>
-  </div>
-  <%= form.button '座席を予約する', type: 'submit', name: nil, class: 'btn btn-primary' %>
-<% end %>

@@ -1,23 +1,33 @@
-<h1>Edit Schedule</h1>
+<h1>スケジュール編集</h1>
 
 <%= form_with(model: [:admin, @schedule], local: true) do |form| %>
-  <div class="field">
+
+  <div>
+    <label>上映日:</label>
+    <%= form.date_field :date, required: true %>
+  </div>
+
+  <div>
     <label>開始時刻:</label>
     <%= form.time_field :start_time, required: true %>
   </div>
 
-  <div class="field">
+  <div>
     <label>終了時刻:</label>
     <%= form.time_field :end_time, required: true %>
   </div>
 
-  <div class="actions">
-    <%= form.submit "Update Schedule" %>
+  <div>
+  <label>劇場・スクリーン:</label>
+  <%= form.collection_select :screen_id, Screen.all, :id, :screen_theater_name, prompt: "劇場・スクリーンを選択してください" %>
+  </div>
+
+  <div>
+    <%= form.submit "更新" %>
   </div>
 <% end %>
 
-<%= link_to 'Back', admin_schedules_path %>
-<%= link_to 'Delete', admin_schedule_path(@schedule),
+<%= link_to '戻る', admin_schedules_path %>
+<%= link_to '削除', admin_schedule_path(@schedule),
             method: :delete,
-            data: { confirm: 'スケジュールを削除します' },
-            class: 'delete-btn' %>
+            data: { confirm: 'スケジュールを削除します' } %>

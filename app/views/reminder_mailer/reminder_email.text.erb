@@ -5,8 +5,8 @@
 映画館: <%= @theater.name %>
 スクリーン: <%= @screen.screen_number %>
 作品: <%= @movie.name %>
-上映時刻: <%= @schedule.start_time.strftime('%Y-%m-%d %H:%M') %> - <%= @schedule.end_time.strftime('%Y-%m-%d %H:%M') %>
-座席番号: <%= @reservation.sheet_id %>
+上映日時: <%= @schedule.date %> <%= @schedule.start_time.strftime('%H:%M') %> - <%= @schedule.end_time.strftime('%H:%M') %>
+座席番号: <%= @reservation.sheet.row %> - <%= @reservation.sheet.column %>
 
 ご来場をお待ちしております。
 

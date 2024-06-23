@@ -7,6 +7,8 @@
   </div>
 <% end %>
 
+<h1>映画情報登録</h1>
+
 <%= form_with(model: [:admin, @movie]) do |form| %>
   <div>
     <%= form.label :name, "タイトル" %>
@@ -25,11 +27,6 @@
   <div>
     <%= form.label :image_url, "画像URL" %>
     <%= form.text_field :image_url %>
-  </div>
-
-  <div>
-    <%= form.label :screen_id, "劇場・スクリーン" %>
-    <%= form.collection_select :screen_id, Screen.all, :id, :screen_theater_name, prompt: "劇場・スクリーンを選択してください" %>
   </div>
 
   <div>
