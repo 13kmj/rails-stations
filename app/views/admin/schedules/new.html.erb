@@ -28,7 +28,14 @@
     <%= form.date_select :start_date, start_year: Date.today.year, use_month_numbers: true, start_from_day: Date.today %>
     ~
     <%= form.date_select :end_date, start_year: Date.today.year, use_month_numbers: true, start_from_day: Date.today %>
-  </div>  
+  </div>
+
+  <div>
+  <%= form.label :days_of_week, '曜日' %><br>
+  <% japanese_day_names.each_with_index do |day, index| %>
+    <%= form.check_box :days_of_week, { multiple: true }, index, nil %> <%= day %><br>
+  <% end %>
+  </div>
 
   <div>
     <%= form.label :start_time, '開始時間' %>
