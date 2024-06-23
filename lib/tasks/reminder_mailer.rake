@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lib/tasks/reminder_mailer.rake
 namespace :reminder_mailer do
   desc 'Send reminder emails for reservations happening tomorrow'

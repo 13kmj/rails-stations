@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lib/tasks/update_rankings.rake
 namespace :update do
   desc 'Update daily movie rankings'
